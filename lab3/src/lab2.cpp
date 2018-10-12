@@ -1,4 +1,4 @@
-#include "lab3.h"
+#include "lab2.h"
 #include <iostream>
 #include <stdlib.h>
 #include <ctype.h>
@@ -12,13 +12,12 @@
 */
 using namespace std;
 
-int queue_main(int argc, char *argv[]) 
+int stack_main(int argc, char *argv[]) 
 {
-	int num;		//元素个数&&入队数字
-	int out;		//接受出队元素
-
-	QUEUE *q;
-	QUEUE *p;
+	int num;//元素个数&&入栈数字
+	int out;//接受出栈元素
+	STACK *s;
+	STACK *p;
 	int ch;
 	while ((ch = getopt(argc, argv, "S:I:O:CA:NG:")) != -1)
 	{
@@ -30,23 +29,21 @@ int queue_main(int argc, char *argv[])
 				debug("The argument of -S is %s", optarg);
 				num=atoi(optarg);
 				debug("%d",num);
-				// printf("S  %d", num);
-				q = new QUEUE(num);
-				printf("S");
-				q->print();
+				printf("S  %d", num);
+				s = new STACK(num);
 				break;
 			case 'I':
 				debug("HAVE option: -I"); 
 				debug("The argument of -I is %s", optarg);
 				num=atoi(optarg);
 				debug("%d",num);
-				(*q)<<num;
+				(*s)<<num;
 				// debug(argv[optind][0]);
 				while(isdigit(argv[optind][0]))
 				{
 					num=atoi(argv[optind]);
 					debug("%d",num);
-					(*q)<<num;
+					(*s)<<num;
 					optind++;
 					if(optind==argc)
 					{
@@ -54,7 +51,7 @@ int queue_main(int argc, char *argv[])
 					}
 				}
 				printf("  I");
-				q->print();
+				s->print();
 				break;
 			case 'O':
 				debug("HAVE option: -O");
@@ -63,40 +60,41 @@ int queue_main(int argc, char *argv[])
 				debug("%d",num);
 				for (int j = 0; j < num; j++)
 				{
-					if (int(*q)== 0)
+					if (int(*s)== 0)
 					{
 						printf("  E");
 						exit(0);
 					}
-					(*q)>>out;
+					(*s)>>out;
 				}
 				printf("  O");
-				q->print();
+				s->print();
 				break;
 			case 'C':
 				debug("HAVE option: -C");
 				printf("  C");
-				p = q;
-				q->print();
+				p = s;
+				s = p;
+				s->print();
 				break;
 			case 'A':
 				debug("HAVE option: -A");
 				debug("The argument of -A is %s", optarg);
 				num=atoi(optarg);
 				printf("  A");
-				q->print();			
+				s->print();			//打印当前栈
 				break;
 			case 'N':
 				debug("HAVE option: -N");
 				printf("  N");
-				printf("  %d", int(*q));
+				printf("  %d", int(*s));
 				break;
 			case 'G':
 				debug("HAVE option: -G");
 				debug("The argument of -G is %s", optarg);
 				num=atoi(optarg);
 				printf("  G");
-				printf("  %d", (*q)[num]);
+				printf("  %d", (*s)[num]);
 				break;
 			default:
 				debug("Unknown option: %c",(char)optopt);
@@ -111,100 +109,96 @@ int queue_main(int argc, char *argv[])
 
 //Overload
 
-
-QUEUE::QUEUE(int m): s1(m), s2(m) 
+STACK::STACK(int m): elems(m > 0 ? new int[m] : new int[0]), max(m > 0 ? m : 0) 
 {
-}
-
-QUEUE::QUEUE(const QUEUE &q): s1(q.s1), s2(q.s2) 
-{
-}
-
-int QUEUE::size(void) const 
-{
-    return s1.size();
-}
-
-int QUEUE::full(void) const 
-{
-    return s1.size();
-}
-
-QUEUE::operator int(void) const 
-{
-    return (int)s1 + (int)s2;
-}
-
-int QUEUE::operator[](int x) const 
-{
-    if (x < (int)s2) 
+    this->pos = 0;
+    for (int i = 0; i < this->size(); i++)
 	{
-        return s2[int(s2)-x-1];
-    }
-	else
-	{
-        return s1[x-(int)s2];
+        this->elems[i] = 0;
     }
 }
 
-QUEUE& QUEUE::operator<<(int e) 
+STACK::STACK(const STACK &s): elems(s.max > 0 ? new int[s.max] : new int[0]), max(s.max > 0 ? s.max : 0) 
+{
+    this->pos = 0;
+    for (int i = 0; i < (int)s && i < this->size(); i++) 
+	{
+        (*this)<<s[i];
+    }
+}
+
+int STACK::size(void) const 
+{
+    return this->max;
+}
+
+STACK::operator int(void) const 
+{
+    return (int)(this->pos);
+}
+
+int STACK::operator[](int x) const 
+{
+    // out of range check
+    if (x < 0 || x >= (int)(*this)) return 0;
+    return this->elems[x];
+}
+
+STACK& STACK::operator<<(int e) 
 {
     // full check
     if (this->size() <= (int)(*this)) return *this;
-    s1<<e;
+    this->elems[this->pos++] = e;
     return *this;
 }
 
-QUEUE& QUEUE::operator>>(int &e) 
+STACK& STACK::operator>>(int &e) 
 {
-    if ((int)s2 <= 0) 
+    // empty check
+    if ((int)(*this) <= 0) 
 	{
-        int elem;
-        // push all elements of s1 into s2
-        while ((int)s1) 
-		{
-            s1>>elem;
-            s2<<elem;
-        }
+        e = 0;
+        return *this;
     }
-    s2>>e;
+
+    e = this->elems[--this->pos];
     return *this;
 }
 
-QUEUE& QUEUE::operator=(const QUEUE &q) 
+STACK& STACK::operator=(const STACK &s) 
 {
-    this->~QUEUE();
-    new (this) QUEUE(q);
+    this->~STACK();
+    new (this) STACK(s);
     return *this;
 }
 
-// int QUEUE::operator==(const QUEUE &q) const 
+// int STACK::operator==(const STACK &s) const 
 // {
 //     // size or pos should equal
-//     if (this->size() != q.size() || (int)(*this) != (int)q) return 0;
+//     if (this->size() != s.size() || (int)(*this) != (int)s) return 0;
 
 //     // every single element should equal
-//     for (int i = 0; i < (int)(*this); i++) {
-//         if ((*this)[i] != q[i]) return 0;
+//     for (int i = 0; i < (int)(*this); i++) 
+// 	{
+//         if ((*this)[i] != s[i]) return 0;
 //     }
-
 //     return 1;
 // }
 
-void QUEUE::print(void) const 
+void STACK::print(void) const 
 {
     for (int i = 0; i < (int)(*this); i++) 
 	{
-		cout<<"  "<<(*this)[i];
+        cout<<"  "<<(*this)[i];
     }
     // cout<<"\n";
 }
 
-QUEUE::~QUEUE(void) 
+STACK::~STACK(void) 
 {
-    // stack member will be destructed automatically when queue vanish
+    delete this->elems;
+    this->pos = 0;
 }
-
 
 
 

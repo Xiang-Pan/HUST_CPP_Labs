@@ -8,5 +8,10 @@
                                                                
 ```
 This is the cpp labs of HUST 2018
-
+## Outline
+- lab1
+    - The C implementation of stack with int elem
+- lab2
+- lab3
+- lab6
 

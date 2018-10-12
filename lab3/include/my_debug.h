@@ -32,22 +32,23 @@
 
 #define PropertyBuilderByName(type, name, access_permission)\
     access_permission:\
-        type m_##name;\
+        type ##name;\
     public:\
     inline void set##name(type v) {\
-        m_##name = v;\
+        ##name = v;\
     }\
     inline type get##name() {\
-        return m_##name;\
+        return ##name;\
     }\
 
 #define PointerPropertyBuilderByName(type, name, access_permission)\
     access_permission:\
-        type* m_##name;\
+        type* ##name;\
     public:\
         inline void set##name(type* v){\
-            m_##name = v;\
+            ##name = v;\
         }\
         inline type* get##name(){\
-            return m_##name;\
+            return ##name;\
         }\
+

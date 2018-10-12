@@ -4,7 +4,7 @@ C_OBJ = $(patsubst %.o, $(OBJ_DIR)/%.o, $(notdir $(OBJECTS)))
 PROG=U201614898_3
 
 # macro for tools
-CC = g++
+CC = x86_64-w64-mingw32-g++
 RM = rm -fr
 MV = mv
 CP = cp -fr

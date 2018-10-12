@@ -2,12 +2,8 @@
 #include <unistd.h>
 #include <string.h>
 #include "my_debug.h"
-#include "lab2.h"
-// #define DEBUG
-// // #undef DEBUG
+#include "lab3.h"
 
-// #ifdef DEBUG
-// #endif
 
 using namespace std;
 
@@ -23,9 +19,10 @@ int main(int argc, char *argv[])
         debug("stack!");
         stack_main(argc-1,argv+1);
     }
-    else if(strcmp(argv[1], "stack") == 0)
+    else if(strcmp(argv[1], "queue") == 0)
     {
-        debug("stack!");
+        debug("queue!");
+        queue_main(argc-1,argv+1);
     }
     return 0;
 }

@@ -18,15 +18,16 @@ using namespace std;
 
 int main(int argc, char *argv[]) 
 {
-    if(strcmp(argv[1], "stack") == 0)
-    {
-        debug("stack!");
-        stack_main(argc-1,argv+1);
-    }
-    else if(strcmp(argv[1], "stack") == 0)
-    {
-        debug("stack!");
-    }
+    stack_main(argc,argv);
+    // if(strcmp(argv[1], "stack") == 0)
+    // {
+    //     debug("stack!");
+    //     stack_main(argc-1,argv+1);
+    // }
+    // else if(strcmp(argv[1], "stack") == 0)
+    // {
+    //     debug("stack!");
+    // }
     return 0;
 }
 
