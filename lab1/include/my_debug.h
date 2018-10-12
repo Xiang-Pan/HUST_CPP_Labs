@@ -11,7 +11,7 @@
 
 
 #define __DEBUG
-// #undef __DEBUG
+#undef __DEBUG
 
 #ifdef __DEBUG
 #define debug(fmt,args...)     \
