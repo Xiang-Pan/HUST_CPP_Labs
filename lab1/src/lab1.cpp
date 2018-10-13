@@ -41,6 +41,7 @@ int stack_main(int argc, char *argv[])
 				debug("%d",num);
 				if(p->pos==p->max)
 				{
+					fail=true;
 					printf("  I");
 					printf("  E");
 					break;
@@ -53,9 +54,9 @@ int stack_main(int argc, char *argv[])
 					debug("%d",num);
 					if(p->pos==p->max)
 					{
+						fail=true;
 						printf("  I");
 						printf("  E");
-						fail=true;
 						break;
 					}
 					p = push(p, num);
@@ -65,13 +66,9 @@ int stack_main(int argc, char *argv[])
 						break;
 					}
 				}
-				printf("  I");
-				if(fail)
+				if(fail==false)
 				{
-					printf("  E");
-				}
-				else
-				{
+					printf("  I");
 					print(p);
 				}
 				break;
@@ -122,6 +119,11 @@ int stack_main(int argc, char *argv[])
 				debug("The argument of -G is %s", optarg);
 				num=atoi(optarg);
 				printf("  G");
+				if(num>p->pos)
+				{
+					printf("  E");
+					break;
+				}
 				printf("  %d", getelem(p,num));
 				break;
 			default:
