@@ -1,0 +1,8 @@
+#.gitignore
+# .gitignore
+
+#obj
+*.o
+
+#other file
+Others/
