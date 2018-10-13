@@ -19,8 +19,15 @@ int stack_main(int argc, char *argv[])
 	STACK *s;
 	STACK *p;
 	int ch;
+	bool fail=false;
 	while ((ch = getopt(argc, argv, "S:I:O:CA:NG:")) != -1)
 	{
+		if(fail)
+		{
+			cdebug("false");
+			break;
+		}
+		fail=false;
 		debug("optind: %d\n", optind);
 		switch (ch) 
 		{
@@ -37,12 +44,26 @@ int stack_main(int argc, char *argv[])
 				debug("The argument of -I is %s", optarg);
 				num=atoi(optarg);
 				debug("%d",num);
+				if(s->getpos()==s->getmax())
+				{
+					fail=true;
+					printf("  I");
+					printf("  E");
+					break;
+				}
 				(*s)<<num;
 				// debug(argv[optind][0]);
 				while(isdigit(argv[optind][0]))
 				{
 					num=atoi(argv[optind]);
 					debug("%d",num);
+					if(s->getpos()==s->getmax())
+					{
+						fail=true;
+						printf("  I");
+						printf("  E");
+						break;
+					}
 					(*s)<<num;
 					optind++;
 					if(optind==argc)
@@ -50,8 +71,11 @@ int stack_main(int argc, char *argv[])
 						break;
 					}
 				}
-				printf("  I");
-				s->print();
+				if(fail==false)
+				{
+					printf("  I");
+					s->print();
+				}
 				break;
 			case 'O':
 				debug("HAVE option: -O");
@@ -94,6 +118,11 @@ int stack_main(int argc, char *argv[])
 				debug("The argument of -G is %s", optarg);
 				num=atoi(optarg);
 				printf("  G");
+				if(num>s->getpos())
+				{
+					printf("  E");
+					break;
+				}
 				printf("  %d", (*s)[num]);
 				break;
 			default:
@@ -147,7 +176,9 @@ int STACK::operator[](int x) const
 STACK& STACK::operator<<(int e) 
 {
     // full check
-    if (this->size() <= (int)(*this)) return *this;
+    // if (this->size() <= (int)(*this)) return *this;
+	cdebug("asdasd");
+	cdebug(this->elems[this->pos]);
     this->elems[this->pos++] = e;
     return *this;
 }

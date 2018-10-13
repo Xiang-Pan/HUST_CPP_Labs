@@ -1,5 +1,6 @@
 #include <stdio.h>
 
+using namespace std;
 // FILE *fd;//文件指针
 // strcat(fname,".txt");
 // fd=fopen(fname,"w+");
@@ -24,6 +25,13 @@
 #define debug(fmt, args...) 
 #endif
 
+#ifdef __DEBUG
+#define cdebug(fmt)  cout <<  fmt;
+#else
+#define cdebug(fmt)  
+#endif
+
+
 
 // PropertyBuilderByName 用于生成类的成员变量
 // 并生成set和get方法
@@ -32,22 +40,22 @@
 
 #define PropertyBuilderByName(type, name, access_permission)\
     access_permission:\
-        type m_##name;\
+        type name;\
     public:\
     inline void set##name(type v) {\
-        m_##name = v;\
+        name = v;\
     }\
     inline type get##name() {\
-        return m_##name;\
+        return name;\
     }\
 
 #define PointerPropertyBuilderByName(type, name, access_permission)\
     access_permission:\
-        type* m_##name;\
+        type* name;\
     public:\
         inline void set##name(type* v){\
-            m_##name = v;\
+            name = v;\
         }\
         inline type* get##name(){\
-            return m_##name;\
+            return name;\
         }\

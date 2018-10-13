@@ -9,11 +9,12 @@ class STACK
 {
     int  *const  elems;	//申请内存用于存放栈的元素
     const  int   max;	//栈能存放的最大元素个数
-    int   pos;			//栈实际已有元素个数，栈空时pos=0;
+    // int   pos;			//栈实际已有元素个数，栈空时pos=0;
 	
-	// PointerPropertyBuilderByName(int  *const, elems, private)
-	// PropertyBuilderByName(int,max, private)
-	// PropertyBuilderByName(int,pos, private)
+	// PointerPropertyBuilderByName(int *const, elems, public)
+	// PropertyBuilderByName(const int,max, public)
+
+	PropertyBuilderByName(int,pos, private)
 public:
 	STACK(int m);							//初始化栈：最多存m个元素
 	STACK(const STACK&s); 					//用栈s拷贝初始化栈
@@ -26,10 +27,9 @@ public:
 	// virtual int operator==(const STACK &s) const;
 	virtual void print( ) const;			//打印栈
 	virtual ~STACK( );						//销毁栈
-	const int  getMax()
+	const int  getmax()
 	{
 		return this->max;
 	}
-	
-	
+
 };
