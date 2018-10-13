@@ -19,9 +19,10 @@ int stack_main(int argc, char *argv[])
 	STACK *s = (STACK *)malloc(sizeof(STACK));
 	STACK *ss;
 	int ch;
-	
+	bool fail=false;
 	while ((ch = getopt(argc, argv, "S:I:O:CA:NG:")) != -1)
 	{
+		fail=false;
 		debug("optind: %d\n", optind);
 		switch (ch) 
 		{
@@ -38,12 +39,25 @@ int stack_main(int argc, char *argv[])
 				debug("The argument of -I is %s", optarg);
 				num=atoi(optarg);
 				debug("%d",num);
+				if(p->pos==p->max)
+				{
+					printf("  I");
+					printf("  E");
+					break;
+				}
 				p = push(p, num);
 				// debug(argv[optind][0]);
 				while(isdigit(argv[optind][0]))
 				{
 					num=atoi(argv[optind]);
 					debug("%d",num);
+					if(p->pos==p->max)
+					{
+						printf("  I");
+						printf("  E");
+						fail=true;
+						break;
+					}
 					p = push(p, num);
 					optind++;
 					if(optind==argc)
@@ -52,7 +66,14 @@ int stack_main(int argc, char *argv[])
 					}
 				}
 				printf("  I");
-				print(p);
+				if(fail)
+				{
+					printf("  E");
+				}
+				else
+				{
+					print(p);
+				}
 				break;
 			case 'O':
 				debug("HAVE option: -O");
