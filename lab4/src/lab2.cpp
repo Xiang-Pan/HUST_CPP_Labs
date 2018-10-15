@@ -24,7 +24,7 @@ int stack_main(int argc, char *argv[])
 	{
 		if(fail)
 		{
-			debug("false");
+			cdebug("false");
 			break;
 		}
 		fail=false;
@@ -177,7 +177,7 @@ STACK& STACK::operator<<(int e)
 {
     // full check
     // if (this->size() <= (int)(*this)) return *this;
-	// dbg(this->elems[this->pos]);
+	// cdebug(this->elems[this->pos]);
     this->elems[this->pos++] = e;
     return *this;
 }

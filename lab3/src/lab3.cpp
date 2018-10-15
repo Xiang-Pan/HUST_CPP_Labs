@@ -16,12 +16,18 @@ int queue_main(int argc, char *argv[])
 {
 	int num;		//元素个数&&入队数字
 	int out;		//接受出队元素
-
 	QUEUE *q;
 	QUEUE *p;
 	int ch;
+	bool fail=false;
 	while ((ch = getopt(argc, argv, "S:I:O:CA:NG:")) != -1)
 	{
+		if(fail)
+		{
+			debug("false");
+			break;
+		}
+		fail=false;
 		debug("optind: %d\n", optind);
 		switch (ch) 
 		{
@@ -30,22 +36,36 @@ int queue_main(int argc, char *argv[])
 				debug("The argument of -S is %s", optarg);
 				num=atoi(optarg);
 				debug("%d",num);
-				// printf("S  %d", num);
+				printf("S  %d", num);
 				q = new QUEUE(num);
-				printf("S");
-				q->print();
+				// printf("S");
+				// q->print();
 				break;
 			case 'I':
 				debug("HAVE option: -I"); 
 				debug("The argument of -I is %s", optarg);
 				num=atoi(optarg);
 				debug("%d",num);
+				if(q->full())
+				{
+					fail=true;
+					printf("  I");
+					printf("  E");
+					break;
+				}
 				(*q)<<num;
 				// debug(argv[optind][0]);
 				while(isdigit(argv[optind][0]))
 				{
 					num=atoi(argv[optind]);
 					debug("%d",num);
+					if(q->full())
+					{
+						fail=true;
+						printf("  I");
+						printf("  E");
+						break;
+					}
 					(*q)<<num;
 					optind++;
 					if(optind==argc)
@@ -127,7 +147,10 @@ int QUEUE::size(void) const
 
 int QUEUE::full(void) const 
 {
-    return s1.size();
+	// printf("nowsthis:%d",(int)(*this));
+	// printf("nows2:%d",(int)s2 );
+	// printf("size:%d",s1.size());
+	return ((int)(*this) )==(s1.size() );
 }
 
 QUEUE::operator int(void) const 

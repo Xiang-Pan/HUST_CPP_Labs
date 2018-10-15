@@ -81,7 +81,7 @@ int stack_main(int argc, char *argv[])
 				{
 					if (p->pos == 0)
 					{
-						printf("  E");
+						printf("  O  E");
 						exit(0);
 					}
 					p = pop(p, out);

@@ -12,6 +12,11 @@ This is the cpp labs of HUST 2018
 - lab1
     - The C implementation of stack with int elem
 - lab2
+    - The C++ implementation of stack with int elem
 - lab3
-- lab6
+    - The C++ implementation of queue using stack
+- lab4
+    - The C++ implementation of queue inherit stack
+- lab5
+    - Transportation System
 

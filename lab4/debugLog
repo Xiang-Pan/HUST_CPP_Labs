@@ -1,0 +1,54 @@
+正在测试C:/msys64/HUST_CPP_Labs/lab3/bin/U201614898_3.exe.......
+执行命令：C:/msys64/HUST_CPP_Labs/lab3/bin/U201614898_3.exe -S  5  -I  1  2  3  4 -O 2 -O 2
+用户输出:
+标准输出:S  5  I  1  2  3  4  O  3  4  O  
+答案错误！
+
+执行命令：C:/msys64/HUST_CPP_Labs/lab3/bin/U201614898_3.exe -S  5 -O 0 -I  1  2  3  4 -O 5 -I 1
+用户输出:
+标准输出:S  5  O  I  1  2  3  4  O  E
+答案错误！
+
+执行命令：C:/msys64/HUST_CPP_Labs/lab3/bin/U201614898_3.exe -S  5  -I  1  2  3  4 -O 2 -I 5 6 7 -I 8
+用户输出:
+标准输出:S  5  I  1  2  3  4  O  3  4  I  3  4  5  6  7  I  3  4  5  6  7  8  
+答案错误！
+
+执行命令：C:/msys64/HUST_CPP_Labs/lab3/bin/U201614898_3.exe -S  5  -I  1  2  3  4 -O 2 -A 4 -I 5 6 -I 7 -I 8
+用户输出:
+标准输出:S  5  I  1  2  3  4  O  3  4  A  3  4  I  3  4  5  6  I  3  4  5  6  7  I  3  4  5  6  7  8  
+答案错误！
+
+执行命令：C:/msys64/HUST_CPP_Labs/lab3/bin/U201614898_3.exe -S  5  -I  1  2  3  4 -O 2 -C -I 5 6 -A 2
+用户输出:
+标准输出:S  5  I  1  2  3  4  O  3  4  C  3  4  I  3  4  5  6  A  3  4  5  6  
+答案错误！
+
+执行命令：C:/msys64/HUST_CPP_Labs/lab3/bin/U201614898_3.exe -S  5  -I  1  2  3  4 -O 2 -N
+用户输出:
+标准输出:S  5  I  1  2  3  4  O  3  4  N  2  
+答案错误！
+
+执行命令：C:/msys64/HUST_CPP_Labs/lab3/bin/U201614898_3.exe -S  5  -I  1  2  3  4 -G 3 -G 7
+用户输出:
+标准输出:S  5  I  1  2  3  4  G  4  G  E
+答案错误！
+
+执行命令：C:/msys64/HUST_CPP_Labs/lab3/bin/U201614898_3.exe -S  5  -I  1  2  3  4 -G 3 -I 5 6 7 8 -O 3 -I 9 0 -G 6 -I 1
+用户输出:
+标准输出:S  5  I  1  2  3  4  G  4  I  1  2  3  4  5  6  7  8  O  4  5  6  7  8  I  4  5  6  7  8  9  0  G  0  I  E
+答案错误！
+
+执行命令：C:/msys64/HUST_CPP_Labs/lab3/bin/U201614898_3.exe -S  3 -I 1 2 3 -O 1 -I 5 6 -G 1 -G 6
+用户输出:
+标准输出:S  3  I  1  2  3  O  2  3  I  2  3  5  6  G  3  G  E
+答案错误！
+
+执行命令：C:/msys64/HUST_CPP_Labs/lab3/bin/U201614898_3.exe -S  3 -I 1 2 3 4 -G 1 -I 5 6 -G 5 -O 6 -O 1
+用户输出:
+标准输出:S  3  I  1  2  3  4  G  2  I  1  2  3  4  5  6  G  6  O  O  E
+答案错误！
+
+共10个测试样例
+正确个数：0
+错误个数：10

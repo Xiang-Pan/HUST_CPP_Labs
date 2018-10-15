@@ -1,10 +1,11 @@
 SOURCES = $(shell find . -path ./test -prune -o -name "*.cpp" -print)
 OBJECTS = $(patsubst %.cpp, %.o, $(SOURCES))
 C_OBJ = $(patsubst %.o, $(OBJ_DIR)/%.o, $(notdir $(OBJECTS)))
-PROG=U201614898_3
+PROG=U201614898_4
 
 # macro for tools
-CC = x86_64-w64-mingw32-g++
+# CC = x86_64-w64-mingw32-g++
+CC = g++
 RM = rm -fr
 MV = mv
 CP = cp -fr
@@ -46,4 +47,10 @@ run:
 clean:
 	$(RM) $(OBJ_DIR) $(BIN_DIR)
 	$(RM) .gdb_history
+
+.PHONY:remake
+remake:
+	$(RM) $(OBJ_DIR) $(BIN_DIR)
+	$(RM) .gdb_history
+	make
 

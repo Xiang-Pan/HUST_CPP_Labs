@@ -2,7 +2,7 @@
 #include <unistd.h>
 #include <string.h>
 #include "my_debug.h"
-#include "lab3.h"
+#include "lab4.h"
 #include "osplatformutil.h"
 
 using namespace std;
@@ -13,12 +13,12 @@ const char *find_file_name(const char *name)
 {
 	char *name_start = NULL;
 	int sep = '/';
-	if (NULL == name) {
-			printf("the path name is NULL\n");
+	if (NULL == name) 
+    {
+        printf("the path name is NULL\n");
 	    return NULL;
 	}
 	name_start = (char *)strrchr(name, sep);
-
 	return (NULL == name_start)?name:(name_start + 1);
 }
 
@@ -43,6 +43,11 @@ int main(int argc, char *argv[])
         stack_main(argc,argv);
     }
     else if(strcmp(file_name, "U201614898_3") == 0)
+    {
+        debug("queue!");
+        queue_main(argc,argv);
+    }
+    else if(strcmp(file_name, "U201614898_4") == 0)
     {
         debug("queue!");
         queue_main(argc,argv);

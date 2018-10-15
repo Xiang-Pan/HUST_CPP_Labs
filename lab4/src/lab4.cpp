@@ -1,7 +1,8 @@
-#include "lab2.h"
+#include "lab4.h"
 #include <iostream>
 #include <stdlib.h>
 #include <ctype.h>
+
 /*
 “设定栈队或队列大小-S”
 “入-I”、
@@ -12,12 +13,12 @@
 */
 using namespace std;
 
-int stack_main(int argc, char *argv[]) 
+int queue_main(int argc, char *argv[]) 
 {
-	int num;//元素个数&&入栈数字
-	int out;//接受出栈元素
-	STACK *s;
-	STACK *p;
+	int num;		//元素个数&&入队数字
+	int out;		//接受出队元素
+	QUEUE *q;
+	QUEUE *p;
 	int ch;
 	bool fail=false;
 	while ((ch = getopt(argc, argv, "S:I:O:CA:NG:")) != -1)
@@ -37,45 +38,44 @@ int stack_main(int argc, char *argv[])
 				num=atoi(optarg);
 				debug("%d",num);
 				printf("S  %d", num);
-				s = new STACK(num);
+				q = new QUEUE(num);
+				// printf("S");
+				// q->print();
 				break;
 			case 'I':
 				debug("HAVE option: -I"); 
 				debug("The argument of -I is %s", optarg);
 				num=atoi(optarg);
 				debug("%d",num);
-				if(s->getpos()==s->getmax())
+				if(q->full())
 				{
 					fail=true;
 					printf("  I");
 					printf("  E");
 					break;
 				}
-				(*s)<<num;
+				(*q)<<num;
 				// debug(argv[optind][0]);
 				while(isdigit(argv[optind][0]))
 				{
 					num=atoi(argv[optind]);
 					debug("%d",num);
-					if(s->getpos()==s->getmax())
+					if(q->full())
 					{
 						fail=true;
 						printf("  I");
 						printf("  E");
 						break;
 					}
-					(*s)<<num;
+					(*q)<<num;
 					optind++;
 					if(optind==argc)
 					{
 						break;
 					}
 				}
-				if(fail==false)
-				{
-					printf("  I");
-					s->print();
-				}
+				printf("  I");
+				q->print();
 				break;
 			case 'O':
 				debug("HAVE option: -O");
@@ -84,46 +84,40 @@ int stack_main(int argc, char *argv[])
 				debug("%d",num);
 				for (int j = 0; j < num; j++)
 				{
-					if (int(*s)== 0)
+					if (int(*q)== 0)
 					{
 						printf("  E");
 						exit(0);
 					}
-					(*s)>>out;
+					(*q)>>out;
 				}
 				printf("  O");
-				s->print();
+				q->print();
 				break;
 			case 'C':
 				debug("HAVE option: -C");
 				printf("  C");
-				p = s;
-				s= p;
-				s->print();
+				p = q;
+				q->print();
 				break;
 			case 'A':
 				debug("HAVE option: -A");
 				debug("The argument of -A is %s", optarg);
 				num=atoi(optarg);
 				printf("  A");
-				s->print();			//打印当前栈
+				q->print();			
 				break;
 			case 'N':
 				debug("HAVE option: -N");
 				printf("  N");
-				printf("  %d", int(*s));
+				printf("  %d", int(*q));
 				break;
 			case 'G':
 				debug("HAVE option: -G");
 				debug("The argument of -G is %s", optarg);
 				num=atoi(optarg);
 				printf("  G");
-				if(num>s->getpos())
-				{
-					printf("  E");
-					break;
-				}
-				printf("  %d", (*s)[num]);
+				printf("  %d", (*q)[num]);
 				break;
 			default:
 				debug("Unknown option: %c",(char)optopt);
@@ -137,85 +131,95 @@ int stack_main(int argc, char *argv[])
 //Impletation Stack Fun
 
 //Overload
-
-STACK::STACK(int m): elems(m > 0 ? new int[m] : new int[0]), max(m > 0 ? m : 0) 
+QUEUE::QUEUE(int m): STACK(m), s(m) 
 {
-    this->pos = 0;
-    for (int i = 0; i < this->size(); i++)
+
+}
+
+QUEUE::QUEUE(const QUEUE &q): STACK(q), s(q.s) 
+{
+
+}
+
+int QUEUE::size(void) const 
+{
+    return STACK::size();
+}
+
+QUEUE::operator int(void) const 
+{
+    return STACK::operator int() + (int)s;
+}
+
+int QUEUE::operator[](int x) const 
+{
+    if (x < (int)s) 
 	{
-        this->elems[i] = 0;
+        return s[int(s)-x-1];
+    } 
+	else 
+	{
+        return STACK::operator[](x-(int)s);
     }
 }
 
-STACK::STACK(const STACK &s): elems(s.max > 0 ? new int[s.max] : new int[0]), max(s.max > 0 ? s.max : 0) 
-{
-    this->pos = 0;
-    for (int i = 0; i < (int)s && i < this->size(); i++) 
-	{
-        (*this)<<s[i];
-    }
-}
-
-int STACK::size(void) const 
-{
-    return this->max;
-}
-
-STACK::operator int(void) const 
-{
-    return (int)(this->pos);
-}
-
-int STACK::operator[](int x) const 
-{
-    // out of range check
-    if (x < 0 || x >= (int)(*this)) return 0;
-    return this->elems[x];
-}
-
-STACK& STACK::operator<<(int e) 
+QUEUE& QUEUE::operator<<(int e) 
 {
     // full check
-    // if (this->size() <= (int)(*this)) return *this;
-	// dbg(this->elems[this->pos]);
-    this->elems[this->pos++] = e;
+    if (this->size() <= (int)(*this)) return *this;
+
+    STACK::operator<<(e);
     return *this;
 }
 
-STACK& STACK::operator>>(int &e) 
+int QUEUE::full() const 
 {
-    // empty check
-    if ((int)(*this) <= 0) 
+	// printf("nowsthis:%d",(int)(*this));
+	// printf("nows2:%d",(int)s2 );
+	// printf("size:%d",s1.size());
+	return ((int)(*this) )==(s.size() );
+}
+
+QUEUE& QUEUE::operator>>(int &e) 
+{
+    if ((int)s <= 0) 
 	{
-        e = 0;
-        return *this;
+        int elem;
+
+        // push all elements of super stack into s
+        while (STACK::operator int()) 
+		{
+            STACK::operator>>(elem);
+            s<<elem;
+        }
     }
 
-    e = this->elems[--this->pos];
+    s>>e;
     return *this;
 }
 
-STACK& STACK::operator=(const STACK &s) 
+QUEUE& QUEUE::operator=(const QUEUE &q) 
 {
-    this->~STACK();
-    new (this) STACK(s);
+    this->~QUEUE();
+    new (this) QUEUE(q);
     return *this;
 }
 
-// int STACK::operator==(const STACK &s) const 
+// int QUEUE::operator==(const QUEUE &q) const 
 // {
 //     // size or pos should equal
-//     if (this->size() != s.size() || (int)(*this) != (int)s) return 0;
+//     if (this->size() != q.size() || (int)(*this) != (int)q) return 0;
 
 //     // every single element should equal
 //     for (int i = 0; i < (int)(*this); i++) 
 // 	{
-//         if ((*this)[i] != s[i]) return 0;
+//         if ((*this)[i] != q[i]) return 0;
 //     }
+
 //     return 1;
 // }
 
-void STACK::print(void) const 
+void QUEUE::print(void) const 
 {
     for (int i = 0; i < (int)(*this); i++) 
 	{
@@ -224,11 +228,13 @@ void STACK::print(void) const
     // cout<<"\n";
 }
 
-STACK::~STACK(void) 
+QUEUE::~QUEUE(void) 
 {
-    delete this->elems;
-    this->pos = 0;
+    // stack member will be destructed automatically when queue vanish
 }
+
+
+
 
 
 
