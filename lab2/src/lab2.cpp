@@ -86,7 +86,7 @@ int stack_main(int argc, char *argv[])
 				{
 					if (int(*s)== 0)
 					{
-						printf("  E");
+						printf("  O  E");
 						exit(0);
 					}
 					(*s)>>out;
