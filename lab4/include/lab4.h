@@ -5,7 +5,7 @@
 #include "my_debug.h"
 #include "lab2.h"
 int queue_main(int argc, char *argv[]);
-
+int dance_main(int argc, char *argv[]);
 class QUEUE:public STACK
 {
     STACK s2;

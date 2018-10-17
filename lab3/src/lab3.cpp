@@ -233,7 +233,7 @@ QUEUE& QUEUE::operator<<(int e)
 	debug("insert:%d",e);
     // // full check
     // if (this->size() <= (int)(*this)) return *this;
-	if(0<=int(s1)&&int(s1)<=4&&int(s2)==0) //state 1
+	if(0<=int(s1)&&int(s1)<=s1.size()-1&&int(s2)==0) //state 1
 	{
 	    debug("state 1");
 		s1<<e; // s1 full

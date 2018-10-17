@@ -1,5 +1,6 @@
 #include "lab4.h"
 #include <iostream>
+#include <cmath>
 #include <stdlib.h>
 #include <ctype.h>
 
@@ -138,10 +139,96 @@ int queue_main(int argc, char *argv[])
 	}
 	return 0;
 }
+//判断素数，是素数返回true
+bool is_prime(int n)
+{
+	for(int i=2; i<=sqrt(n); i++)
+	{
+        if(n%i == 0)
+		{
+            cout << n << " isn't a prime" << endl;
+            return false;
+        }
+    }
+    return true;
+}
 
-//Impletation Stack Fun
 
-//Overload
+int dance_main(int argc, char *argv[])
+{
+	//male and female num
+	int M = 0, F = 0;
+
+	//male and female queue
+	QUEUE *que_m=nullptr;
+	QUEUE *que_f=nullptr;
+
+	//male and female position
+	int pos_m = 0;
+	int pos_f = 0;
+	int count = 0;
+
+	cout << "Please enter the amount of male: ";
+	cin >> M;
+	cout << "Please enter the amount of female: ";
+	cin >> F;
+	if (!is_prime(M))
+	{
+		cerr << "ERROE:the Input number (amount of male) is not prime number!" << endl;
+		return -1;
+	}
+	if (!is_prime(F))
+	{
+		cerr << "ERROE:the Input number (amount of female) is not prime number!" << endl;
+		return -1;
+	}
+	if(M==F)
+	{
+		cerr << "ERROE:the amount of male and the amount of female should not be same" << endl;
+		return -1;
+	}
+	cout << "Please enter the pos of man: ";
+	cin >> pos_m;
+	cout << "Please enter the pos of woman: ";
+	cin >> pos_f;
+	if (!(pos_m <= M&&pos_f <= F))
+	{
+		cerr << "ERROE:the pos out of the range" << endl;
+		return -1;
+	}
+	// new queue
+	que_m = new QUEUE(M);
+	que_f = new QUEUE(F);
+	for (int i = 0; i < M; i++) 
+	{
+		(*que_m) << (i + 1);
+	}
+	for (int i = 0; i < F; i++) 
+	{
+		(*que_f) << (i + 1);
+	}
+	int out_m=0;
+	int out_f=0;
+	for (int i = 0;; i++) 
+		{
+			count++;
+			(*que_m)>>out_m;
+			(*que_f)>>out_f;
+			if (out_m == pos_m&&out_f == pos_f) 
+			{
+				cout << "They will dance with each other at Music No." << count << endl;
+				delete que_m;
+				delete que_f;
+				que_m=nullptr;
+				que_f=nullptr;
+				return 0;
+			}
+			(*que_m) << out_m;
+			(*que_f) << out_f;
+		}
+}
+
+//Impletation QUEUE Fun
 QUEUE::QUEUE(int m): STACK(m), s2(m)
 {
 
@@ -215,7 +302,7 @@ QUEUE& QUEUE::operator<<(int e)
 	debug("insert:%d",e);
     // // full check
     // if (this->size() <= (int)(*this)) return *this;
-	if(0<=STACK::operator int()&&STACK::operator int()<=4&&int(s2)==0) //state 1
+	if(0<=STACK::operator int()&&STACK::operator int()<=STACK::size()-1&&int(s2)==0) //state 1
 	{
 	    debug("state 1");
 		STACK::operator <<(e); // s1 full
@@ -257,6 +344,7 @@ QUEUE& QUEUE::operator<<(int e)
         debug("state 4");
 		return *this;
 	}
+	cout<<"error!";
     return *this;
 }
 
