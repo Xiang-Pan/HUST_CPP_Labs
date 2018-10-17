@@ -156,15 +156,22 @@ STACK::STACK(const STACK &s): elems(s.max > 0 ? new int[s.max] : new int[0]), ma
     }
 }
 
-int STACK::size(void) const 
+int STACK::size() const 
 {
     return this->max;
+}
+
+bool STACK::full() const 
+{
+    return (this->max==(int)(this->pos));
 }
 
 STACK::operator int(void) const 
 {
     return (int)(this->pos);
 }
+
+
 
 int STACK::operator[](int x) const 
 {
@@ -177,7 +184,6 @@ STACK& STACK::operator<<(int e)
 {
     // full check
     // if (this->size() <= (int)(*this)) return *this;
-	cdebug("asdasd");
 	cdebug(this->elems[this->pos]);
     this->elems[this->pos++] = e;
     return *this;

@@ -59,3 +59,14 @@ using namespace std;
         inline type* get##name(){\
             return name;\
         }\
+
+// #define constPropertyBuilderByName(type, name, access_permission)\
+//     access_permission:\
+//         const type name;\
+//     public:\
+//     inline void set##name(type v) {\
+//         name = v;\
+//     }\
+//     inline type get##name() {\
+//         return name;\
+//     }\

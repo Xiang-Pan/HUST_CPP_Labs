@@ -19,6 +19,8 @@ public:
 	STACK(int m);							//初始化栈：最多存m个元素
 	STACK(const STACK&s); 					//用栈s拷贝初始化栈
 	virtual int  size ( ) const;			//返回栈的最大元素个数max
+	virtual bool  full ( ) const;	
+	virtual bool  empty ( ) const;		
 	virtual operator int ( ) const;			//返回栈的实际元素个数pos
 	virtual int operator[ ] (int x) const;	//取下标x处的栈元素，第1个元素x=0
 	virtual STACK& operator<<(int e); 		//将e入栈,并返回栈

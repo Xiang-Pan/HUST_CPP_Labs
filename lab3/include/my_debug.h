@@ -11,7 +11,7 @@
 
 
 #define __DEBUG
-// #undef __DEBUG
+#undef __DEBUG
 
 #ifdef __DEBUG
 #define debug(fmt,args...)     \
@@ -25,11 +25,11 @@
 #endif
 
 
-// #ifdef __DEBUG
-// #define dbg(fmt)  cout <<fmt
-// #else
-// #define dbg(fmt)  
-// #endif
+#ifdef __DEBUG
+#define dbg(fmt)  cout <<fmt
+#else
+#define dbg(fmt)  
+#endif
 
 // PropertyBuilderByName 用于生成类的成员变量
 // 并生成set和get方法
@@ -43,7 +43,7 @@
     inline void set##name(type v) {\
         name = v;\
     }\
-    inline type get##name() {\
+    inline type get##name() const{\
         return name;\
     }\
 

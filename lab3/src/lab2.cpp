@@ -24,7 +24,7 @@ int stack_main(int argc, char *argv[])
 	{
 		if(fail)
 		{
-			debug("false");
+			// cdebug("false");
 			break;
 		}
 		fail=false;
@@ -86,7 +86,7 @@ int stack_main(int argc, char *argv[])
 				{
 					if (int(*s)== 0)
 					{
-						printf("  E");
+						printf("  O  E");
 						exit(0);
 					}
 					(*s)>>out;
@@ -156,15 +156,27 @@ STACK::STACK(const STACK &s): elems(s.max > 0 ? new int[s.max] : new int[0]), ma
     }
 }
 
-int STACK::size(void) const 
+int STACK::size() const 
 {
     return this->max;
+}
+
+bool STACK::full() const 
+{
+    return (this->max==(int)(this->pos));
+}
+
+bool STACK::empty() const 
+{
+    return (0==(int)(this->pos));
 }
 
 STACK::operator int(void) const 
 {
     return (int)(this->pos);
 }
+
+
 
 int STACK::operator[](int x) const 
 {
@@ -177,7 +189,8 @@ STACK& STACK::operator<<(int e)
 {
     // full check
     // if (this->size() <= (int)(*this)) return *this;
-	// dbg(this->elems[this->pos]);
+	// debug("asdasd");
+	// debug(this->elems[this->pos]);
     this->elems[this->pos++] = e;
     return *this;
 }

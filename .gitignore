@@ -6,3 +6,7 @@
 
 #other file
 Others/
+
+#CMakeFiles
+**/CMakeFiles/
+**/Build:

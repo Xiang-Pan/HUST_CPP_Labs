@@ -54,6 +54,12 @@ int queue_main(int argc, char *argv[])
 					break;
 				}
 				(*q)<<num;
+                if(optind==argc)
+                {
+                    printf("  I");
+                    q->print();
+                    break;
+                }
 				// debug(argv[optind][0]);
 				while(isdigit(argv[optind][0]))
 				{
@@ -85,7 +91,7 @@ int queue_main(int argc, char *argv[])
 				{
 					if (int(*q)== 0)
 					{
-						printf("  E");
+						printf("  O  E");
 						exit(0);
 					}
 					(*q)>>out;
@@ -115,6 +121,11 @@ int queue_main(int argc, char *argv[])
 				debug("HAVE option: -G");
 				debug("The argument of -G is %s", optarg);
 				num=atoi(optarg);
+				if(num>int(*q))
+				{
+					printf("  G  E");
+					break;
+				}
 				printf("  G");
 				printf("  %d", (*q)[num]);
 				break;
@@ -147,51 +158,185 @@ int QUEUE::size(void) const
 
 int QUEUE::full(void) const 
 {
+	// debug("%d",s1.full()&&1<=int(s2)&&int(s2)<=s2.size());
+	// debug("%d",int(s2));
+	// debug("%d",int(s1));
+	// debug
+	if(s1.full()&&1<=int(s2)&&int(s2)<=s2.size())
+	{
+		return 1;
+	}
+	else
+	{
+		return 0;
+	}
 	// printf("nowsthis:%d",(int)(*this));
 	// printf("nows2:%d",(int)s2 );
 	// printf("size:%d",s1.size());
-	return ((int)(*this) )==(s1.size() );
 }
 
-QUEUE::operator int(void) const 
+QUEUE::operator int() const 
 {
     return (int)s1 + (int)s2;
 }
 
 int QUEUE::operator[](int x) const 
 {
-    if (x < (int)s2) 
+//	assert(0<=x&&x<=int(*this)-1);
+	if(0<=int(s1)&&int(s1)<=s1.size()-1&&s2.empty()) //state 1
 	{
-        return s2[int(s2)-x-1];
-    }
-	else
+
+		if(x<=int(s1))
+		{
+			return s1[x];
+		}
+	}
+	if(0==int(s1)&&s2.full()) //state 2
 	{
-        return s1[x-(int)s2];
-    }
+		if(x<=int(s2))
+		{
+			return s2[s2.getpos()-x-1];
+		}
+		else
+        {
+            return s1[x-int(s2)];
+        }
+        return s2[s2.getpos()-x];
+	}
+	if(1<=int(s1)&&int(s1)<=s1.size()&&1<=int(s2)&&int(s2)<=s1.size()) //state 3
+	{
+        if(x<=int(s2)-1)
+        {
+            return s2[s2.getpos()-x-1];
+        }
+        else
+        {
+            return s1[x-int(s2)];
+        }
+
+	}
+    if(s1.full()&&1<=int(s2)&&int(s2)<=s2.size()) //state 4
+	{
+		if(x<=int(s2))
+		{
+			return s2[s2.getpos()-x-1];
+		}
+		else
+		{
+			return s1[x-int(s2)];
+		}
+	}
+    // if (x < (int)s2) 
+	// {
+    //     return s2[int(s2)-x-1];
+    // }
+	// else
+	// {
+    //     return s1[x-(int)s2];
+    // }
 }
 
 QUEUE& QUEUE::operator<<(int e) 
 {
-    // full check
-    if (this->size() <= (int)(*this)) return *this;
-    s1<<e;
+	debug("s1:%d",int(s1));
+	debug("s2:%d",int(s2));
+	debug("insert:%d",e);
+    // // full check
+    // if (this->size() <= (int)(*this)) return *this;
+	if(0<=int(s1)&&int(s1)<=4&&int(s2)==0) //state 1
+	{
+	    debug("state 1");
+		s1<<e; // s1 full
+		if(s1.full())
+		{
+			stack_dump(s1,s2); // to state 2 
+			debug("s1:%d",int(s1));
+			debug("s2:%d",int(s2));
+			return *this;
+		}
+		debug("s1:%d",int(s1));
+		debug("s2:%d",int(s2));
+		return *this;
+	}
+	if(0==int(s1)&&s2.full()) //state 2
+	{
+        debug("state 2");
+		s1<<e; // to state 3
+		debug("s1:%d",int(s1));
+		debug("s2:%d",int(s2));
+		return *this;
+	}
+	if(1<=int(s1)&&int(s1)<=s1.size()-1&&1<=int(s2)&&int(s2)<=s2.size()) //state 3
+	{
+        debug("state 3");
+		s1<<e;
+		debug("s1:%d",int(s1));
+		debug("s2:%d",int(s2));
+		if(s1.full())
+		{
+			//to state 4
+			return *this;
+		}
+		return *this;
+	}
+    if(s1.full()&&1<=int(s2)&&int(s2)<=s2.size()) //state 4
+	{
+        debug("state 4");
+		// can not <<
+		return *this;
+	}
     return *this;
 }
 
 QUEUE& QUEUE::operator>>(int &e) 
 {
-    if ((int)s2 <= 0) 
+	debug("s1:%d",int(s1));
+	debug("s2:%d",int(s2));
+	if(0<=int(s1)&&int(s1)<=s1.size()-1&&s2.empty()) //state 1
 	{
-        int elem;
-        // push all elements of s1 into s2
-        while ((int)s1) 
+		debug("state 1");
+		stack_dump(s1,s2);
+		s2>>e;
+		stack_dump(s2,s1);// to state 1 
+	}
+	if(0==int(s1)&&s2.full()) //state 2
+	{
+		s2>>e; // to state 1
+		stack_dump(s2,s1);
+		return *this;
+	}
+	if(1<=int(s1)&&int(s1)<=s1.size()&&1<=int(s2)&&int(s2)<=s1.size()) //state 3
+	{
+		s2>>e;
+		if(s2.empty())
 		{
-            s1>>elem;
-            s2<<elem;
-        }
-    }
-    s2>>e;
+			if(0<=int(s1)&&int(s1)<=s1.size()-1) //to state 1 
+			{
+
+			}
+			if(s1.full()) //to state 2
+			{
+				stack_dump(s1,s2);
+			}
+		}
+		return *this;
+	}
+    if(s1.full()&&1<=int(s2)&&int(s2)<=s2.size()) //state 4
+	{
+		s2>>e;
+		if(s2.empty())	// to state 1 
+		{
+			stack_dump(s1,s2);
+		}
+		return *this;
+	}
     return *this;
+    // if ((int)s2 <= 0) 
+	// {
+    //     stack_dump(s1,s2);
+    // }
+    // s2>>e;
+    // return *this;
 }
 
 QUEUE& QUEUE::operator=(const QUEUE &q) 
@@ -214,7 +359,7 @@ QUEUE& QUEUE::operator=(const QUEUE &q)
 //     return 1;
 // }
 
-void QUEUE::print(void) const 
+void QUEUE::print() const
 {
     for (int i = 0; i < (int)(*this); i++) 
 	{
@@ -228,6 +373,20 @@ QUEUE::~QUEUE(void)
     // stack member will be destructed automatically when queue vanish
 }
 
+
+void QUEUE::stack_dump(STACK& src,STACK& dst)
+{
+	// push all elements of src into dst
+	if ((int)src <= dst.size()-int(dst)) 
+	{
+        int elem;
+		while ((int)src) 
+		{
+			src>>elem;
+			dst<<elem;
+		}
+    }
+}
 
 
 

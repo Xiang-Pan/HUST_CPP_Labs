@@ -177,7 +177,7 @@ int QUEUE::full() const
 	// printf("nowsthis:%d",(int)(*this));
 	// printf("nows2:%d",(int)s2 );
 	// printf("size:%d",s1.size());
-	return ((int)(*this) )==(s.size() );
+	return (this->size() <= (int)(*this));
 }
 
 QUEUE& QUEUE::operator>>(int &e) 

@@ -2,6 +2,7 @@
 #include <stdlib.h>
 #include <string.h>
 #include <unistd.h>
+#include <assert.h>
 #include "my_debug.h"
 #include "lab2.h"
 int queue_main(int argc, char *argv[]);
@@ -21,4 +22,6 @@ class QUEUE
 	virtual QUEUE& operator=(const QUEUE&s);//赋s给队列,并返回被赋值的队列
 	virtual void print( ) const;			//打印队列
 	virtual ~QUEUE( );						//销毁队列
+	private:
+	void stack_dump(STACK& src,STACK& dst);			//两个栈之间执行出入栈转换
 };
