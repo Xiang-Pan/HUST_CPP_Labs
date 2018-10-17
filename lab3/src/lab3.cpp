@@ -151,12 +151,12 @@ QUEUE::QUEUE(const QUEUE &q): s1(q.s1), s2(q.s2)
 {
 }
 
-int QUEUE::size(void) const 
+int QUEUE::size() const 
 {
     return s1.size();
 }
 
-int QUEUE::full(void) const 
+int QUEUE::full() const 
 {
 	// debug("%d",s1.full()&&1<=int(s2)&&int(s2)<=s2.size());
 	// debug("%d",int(s2));
@@ -201,7 +201,6 @@ int QUEUE::operator[](int x) const
         {
             return s1[x-int(s2)];
         }
-        return s2[s2.getpos()-x];
 	}
 	if(1<=int(s1)&&int(s1)<=s1.size()&&1<=int(s2)&&int(s2)<=s1.size()) //state 3
 	{
@@ -213,7 +212,6 @@ int QUEUE::operator[](int x) const
         {
             return s1[x-int(s2)];
         }
-
 	}
     if(s1.full()&&1<=int(s2)&&int(s2)<=s2.size()) //state 4
 	{
@@ -226,14 +224,6 @@ int QUEUE::operator[](int x) const
 			return s1[x-int(s2)];
 		}
 	}
-    // if (x < (int)s2) 
-	// {
-    //     return s2[int(s2)-x-1];
-    // }
-	// else
-	// {
-    //     return s1[x-(int)s2];
-    // }
 }
 
 QUEUE& QUEUE::operator<<(int e) 
@@ -282,7 +272,6 @@ QUEUE& QUEUE::operator<<(int e)
     if(s1.full()&&1<=int(s2)&&int(s2)<=s2.size()) //state 4
 	{
         debug("state 4");
-		// can not <<
 		return *this;
 	}
     return *this;
@@ -331,12 +320,6 @@ QUEUE& QUEUE::operator>>(int &e)
 		return *this;
 	}
     return *this;
-    // if ((int)s2 <= 0) 
-	// {
-    //     stack_dump(s1,s2);
-    // }
-    // s2>>e;
-    // return *this;
 }
 
 QUEUE& QUEUE::operator=(const QUEUE &q) 

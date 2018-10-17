@@ -1,6 +1,5 @@
 #include <stdio.h>
 
-using namespace std;
 // FILE *fd;//文件指针
 // strcat(fname,".txt");
 // fd=fopen(fname,"w+");
@@ -25,13 +24,12 @@ using namespace std;
 #define debug(fmt, args...) 
 #endif
 
+
 #ifdef __DEBUG
-#define cdebug(fmt)  cout <<  fmt;
+#define dbg(fmt)  cout <<fmt
 #else
-#define cdebug(fmt)  
+#define dbg(fmt)  
 #endif
-
-
 
 // PropertyBuilderByName 用于生成类的成员变量
 // 并生成set和get方法
@@ -45,7 +43,7 @@ using namespace std;
     inline void set##name(type v) {\
         name = v;\
     }\
-    inline type get##name() {\
+    inline type get##name() const{\
         return name;\
     }\
 
@@ -59,3 +57,4 @@ using namespace std;
         inline type* get##name(){\
             return name;\
         }\
+

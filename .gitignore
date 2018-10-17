@@ -9,5 +9,9 @@ Others/
 
 #CMakeFiles
 **/CMakeFiles/
+**/cmake-build-debug/
+
+#idea
+**/.idea/
 #Build File
 **/Build/:

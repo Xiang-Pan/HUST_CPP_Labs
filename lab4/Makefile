@@ -1,4 +1,4 @@
-SOURCES = $(shell find . -path ./test -prune -o -name "*.cpp" -print)
+SOURCES = $(shell find . -path ./cmake-build-debug -prune -o -name "*.cpp" -print)
 OBJECTS = $(patsubst %.cpp, %.o, $(SOURCES))
 C_OBJ = $(patsubst %.o, $(OBJ_DIR)/%.o, $(notdir $(OBJECTS)))
 PROG=U201614898_4
