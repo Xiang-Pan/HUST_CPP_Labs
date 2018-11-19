@@ -83,7 +83,7 @@ int main(int argc, char *argv[])
         debug("queue!");
         if(argc==1)
         {
-            dance_main();
+            dance_main(argc,argv);
         }
         queue_main(argc,argv);
     }
