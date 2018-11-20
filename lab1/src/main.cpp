@@ -45,17 +45,39 @@ int main(int argc, char *argv[])
     else if(strcmp(file_name, "U201614898_3") == 0)
     {
         debug("queue!");
-        queue_main(argc,argv);
+        // queue_main(argc,argv);
     }
     else if(strcmp(file_name, "U201614898_4") == 0)
     {
         debug("queue!");
-        queue_main(argc,argv);
+        // queue_main(argc,argv);
     }
     #elif defined I_OS_WIN32
     cout<<"this is windows"<<endl;
     #elif defined I_OS_CYGWIN
-    cout<<"this is cygwin"<<endl;
+    debug("this is cygwin");
+     const char* file_name;
+    file_name=find_file_name(argv[0]);
+    if(strcmp(file_name, "U201614898_1") == 0)
+    {
+        debug("stack!");
+        stack_main(argc,argv);
+    }
+    else if(strcmp(file_name, "U201614898_2") == 0)
+    {
+        debug("stack!");
+        stack_main(argc,argv);
+    }
+    else if(strcmp(file_name, "U201614898_3") == 0)
+    {
+        debug("queue!");
+        // queue_main(argc,argv);
+    }
+    else if(strcmp(file_name, "U201614898_4") == 0)
+    {
+        debug("queue!");
+        // queue_main(argc,argv);
+    }
     #endif
     return 0;
 }

@@ -13,8 +13,8 @@
 
 int stack_main(int argc, char *argv[]) 
 {
-	int num;//元素个数&&入栈数字
-	int out;//接受出栈元素
+	int num;			//元素个数&&入栈数字
+	int out;			//接受出栈元素
 	STACK *p = (STACK *)malloc(sizeof(STACK));
 	STACK *s = (STACK *)malloc(sizeof(STACK));
 	STACK *ss;
@@ -213,29 +213,7 @@ void destroySTACK(STACK *const p)
 	free(p);
 }
 
-//D:将char转换为int,返回一个整数
-int atoi_my(char *str)
-{
-	int s = 0;
-	bool flag = false;
-	while (*str == ' ') { str++; }
-	if (*str == '-' || *str == '+')
-	{
-		if (*str == '-')
-			flag = true;
-		str++;
-	}
-	while (*str >= '0'&& *str <= '9')
-	{
-		s = s * 10 + *str - '0';
-		str++;
-		if (s < 0) {
-			s = 2147483647;
-			break;
-		}
-	}
-	return s*(flag ? -1 : 1);
-}
+
 
 
 

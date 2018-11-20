@@ -5,19 +5,19 @@
 答案正确！
 
 执行命令：C:/msys64/HUST_CPP_Labs/lab2/bin/U201614898_2.exe -S  5 -O 0 -I  1  2  3  4 -O 5 -I 1
-用户输出:S  5  O  I  1  2  3  4  E
+用户输出:S  5  O  I  1  2  3  4  O  E
 标准输出:S  5  O  I  1  2  3  4  O  E
-答案错误！
+答案正确！
 
 执行命令：C:/msys64/HUST_CPP_Labs/lab2/bin/U201614898_2.exe -S  5  -I  1  2  3  4 -O 2 -I 5 6 7 -I 8
-用户输出:
+用户输出:S  5  I  1  2  3  4  O  1  2  I  1  2  5  6  7  I  E
 标准输出:S  5  I  1  2  3  4  O  1  2  I  1  2  5  6  7  I  E
-答案错误！
+答案正确！
 
 执行命令：C:/msys64/HUST_CPP_Labs/lab2/bin/U201614898_2.exe -S  5  -I  1  2  3  4 -O 2 -A 4 -I 5 6 -I 7 -I 8
-用户输出:
+用户输出:S  5  I  1  2  3  4  O  1  2  A  1  2  I  1  2  5  6  I  1  2  5  6  7  I  E
 标准输出:S  5  I  1  2  3  4  O  1  2  A  1  2  I  1  2  5  6  I  1  2  5  6  7  I  E
-答案错误！
+答案正确！
 
 执行命令：C:/msys64/HUST_CPP_Labs/lab2/bin/U201614898_2.exe -S  5  -I  1  2  3  4 -O 2 -C -I 5 6 -A 2
 用户输出:S  5  I  1  2  3  4  O  1  2  C  1  2  I  1  2  5  6  A  1  2  5  6
@@ -30,25 +30,25 @@
 答案正确！
 
 执行命令：C:/msys64/HUST_CPP_Labs/lab2/bin/U201614898_2.exe -S  5  -I  1  2  3  4 -G 3 -G 7
-用户输出:S  5  I  1  2  3  4  G  4  G  0
+用户输出:S  5  I  1  2  3  4  G  4  G  E
 标准输出:S  5  I  1  2  3  4  G  4  G  E
-答案错误！
+答案正确！
 
 执行命令：C:/msys64/HUST_CPP_Labs/lab2/bin/U201614898_2.exe -S  5  -I  1  2  3  4 -G 3 -I 5 6 7 8 -O 3 -I 9 0 -G 6 -I 1
-用户输出:
+用户输出:S  5  I  1  2  3  4  G  4  I  E
 标准输出:S  5  I  1  2  3  4  G  4  I  E
-答案错误！
+答案正确！
 
 执行命令：C:/msys64/HUST_CPP_Labs/lab2/bin/U201614898_2.exe -S  3 -I 1 2 3 -O 1 -I 5 6 -G 1 -G 6
-用户输出:S  3  I  1  2  3  O  1  2  I  1  2  5  G  2  G  0
+用户输出:S  3  I  1  2  3  O  1  2  I  E
 标准输出:S  3  I  1  2  3  O  1  2  I  E
-答案错误！
+答案正确！
 
 执行命令：C:/msys64/HUST_CPP_Labs/lab2/bin/U201614898_2.exe -S  3 -I 1 2 3 4 -G 1 -I 5 6 -G 5 -O 6 -O 1
-用户输出:S  3  I  1  2  3  G  2  I  1  2  3  G  0  E
+用户输出:S  3  I  E
 标准输出:S  3  I  E
-答案错误！
+答案正确！
 
 共10个测试样例
-正确个数：3
-错误个数：7
+正确个数：10
+错误个数：0

@@ -10,7 +10,9 @@ RM = rm -fr
 MV = mv
 CP = cp -fr
 MKDIR = mkdir -p
+# BROWSER = google-chrome
 # DOCS = doxygen
+
 
 # macro for flags
 FLAGS = -c -Wall -g $(addprefix -I, $(INCLUDE))
@@ -18,7 +20,7 @@ FLAGS = -c -Wall -g $(addprefix -I, $(INCLUDE))
 # path macro
 BIN_DIR = ./bin
 OBJ_DIR = ./obj
-DOCS_DIR = ./docs
+
 
 # include macro
 INCLUDE += ./include/

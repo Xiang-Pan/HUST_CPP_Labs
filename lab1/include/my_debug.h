@@ -1,8 +1,5 @@
 #include <stdio.h>
 
-// FILE *fd;//文件指针
-// strcat(fname,".txt");
-// fd=fopen(fname,"w+");
 
 
 
