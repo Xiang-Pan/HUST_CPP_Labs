@@ -16,19 +16,19 @@ using namespace std;
 
 #ifdef __DEBUG
 #define debug(fmt,args...)     \
-        printf(ECHO_COLOR_GREEN "\nDebug: " fmt "\n" ECHO_COLOR_NONE, ##args); 
-// printf(ECHO_COLOR_GREEN "Debug: " fmt "(file: %s, func: %s, line: %d)\n" ECHO_COLOR_NONE, ##args, __FILE__, __func__, __LINE__); 
+        printf(ECHO_COLOR_GREEN "\nDebug: " fmt "\n" ECHO_COLOR_NONE, ##args);
+// printf(ECHO_COLOR_GREEN "Debug: " fmt "(file: %s, func: %s, line: %d)\n" ECHO_COLOR_NONE, ##args, __FILE__, __func__, __LINE__);
         // printf(ECHO_COLOR_GREEN fmt ECHO_COLOR_NONE);
         // printf(ECHO_COLOR_GREEN "Debug: " fmt "\n");
-     
+
 #else
-#define debug(fmt, args...) 
+#define debug(fmt, args...)
 #endif
 
 #ifdef __DEBUG
 #define cdebug(fmt)  cout <<  fmt;
 #else
-#define cdebug(fmt)  
+#define cdebug(fmt)
 #endif
 
 
@@ -60,13 +60,13 @@ using namespace std;
             return name;\
         }\
 
-// #define constPropertyBuilderByName(type, name, access_permission)\
-//     access_permission:\
-//         const type name;\
-//     public:\
-//     inline void set##name(type v) {\
-//         name = v;\
-//     }\
-//     inline type get##name() {\
-//         return name;\
-//     }\
+#define constPropertyBuilderByName(type, name, access_permission)\
+    access_permission:\
+        const type name;\
+    public:\
+    inline void set##name(type v) {\
+        name = v;\
+    }\
+    inline type get##name() {\
+        return name;\
+    }\

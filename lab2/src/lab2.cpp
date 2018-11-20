@@ -228,7 +228,6 @@ void STACK::print(void) const
 	{
         cout<<"  "<<(*this)[i];
     }
-    // cout<<"\n";
 }
 
 STACK::~STACK(void) 

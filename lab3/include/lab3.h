@@ -23,5 +23,5 @@ class QUEUE
 	virtual void print( ) const;			//打印队列
 	virtual ~QUEUE( );						//销毁队列
 	private:
-	void stack_dump(STACK& src,STACK& dst);			//两个栈之间执行出入栈转换
+	void stack_dump(STACK& src,STACK& dst);	//两个栈之间执行出入栈转换
 };
