@@ -1,3 +1,9 @@
+/* FileName:	main.cpp
+ * Author:		Hover
+ * E-Mail:		hover@hust.edu.cn
+ * GitHub:		HoverWings
+ * Description:	The main of program and call the interface funciton math the OS
+ */
 #include <iostream>
 #include <unistd.h>
 #include <string.h>
@@ -52,6 +58,7 @@ int main(int argc, char *argv[])
         debug("queue!");
         if(argc==1)
         {
+            debug("dance!");
             dance_main(argc,argv);
         }
         queue_main(argc,argv);

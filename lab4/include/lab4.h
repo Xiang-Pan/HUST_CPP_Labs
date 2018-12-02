@@ -1,9 +1,15 @@
+/* FileName:	lab4.h
+ * Author:		Hover
+ * E-Mail:		hover@hust.edu.cn
+ * GitHub:		HoverWings
+ * Description:	The definenation of QUEUE 
+ */
 #include <stdio.h>
 #include <stdlib.h>
 #include <string.h>
 #include <unistd.h>
 #include "my_debug.h"
-#include "lab2.h"
+#include "lab3.h"
 int queue_main(int argc, char *argv[]);
 int dance_main(int argc, char *argv[]);
 class QUEUE:public STACK

@@ -1,7 +1,13 @@
-#include "lab2.h"
+/* FileName:	lab3.cpp
+ * Author:		Hover
+ * E-Mail:		hover@hust.edu.cn
+ * GitHub:		HoverWings
+ * Description:	The implementation of STACK 
+ */
+#include "lab3.h"
 #include <iostream>
 #include <stdlib.h>
-#include <ctype.h>
+#include <cctype>
 /*
 “设定栈队或队列大小-S”
 “入-I”、
@@ -24,7 +30,7 @@ int stack_main(int argc, char *argv[])
 	{
 		if(fail)
 		{
-			// cdebug("false");
+			cdebug("false");
 			break;
 		}
 		fail=false;
@@ -106,7 +112,10 @@ int stack_main(int argc, char *argv[])
 				debug("The argument of -A is %s", optarg);
 				num=atoi(optarg);
 				printf("  A");
-				s->print();			//打印当前栈
+				p = new STACK(num);
+				(*p)=*s;			//assign p to s
+				s = p;
+				s->print();			//print current stack
 				break;
 			case 'N':
 				debug("HAVE option: -N");
@@ -161,14 +170,9 @@ int STACK::size() const
     return this->max;
 }
 
-int STACK::full() const 
+bool STACK::full() const 
 {
     return (this->max==(int)(this->pos));
-}
-
-bool STACK::empty() const 
-{
-    return (0==(int)(this->pos));
 }
 
 STACK::operator int(void) const 
@@ -189,8 +193,7 @@ STACK& STACK::operator<<(int e)
 {
     // full check
     // if (this->size() <= (int)(*this)) return *this;
-	// debug("asdasd");
-	// debug(this->elems[this->pos]);
+	cdebug(this->elems[this->pos]);
     this->elems[this->pos++] = e;
     return *this;
 }
@@ -215,18 +218,6 @@ STACK& STACK::operator=(const STACK &s)
     return *this;
 }
 
-// int STACK::operator==(const STACK &s) const 
-// {
-//     // size or pos should equal
-//     if (this->size() != s.size() || (int)(*this) != (int)s) return 0;
-
-//     // every single element should equal
-//     for (int i = 0; i < (int)(*this); i++) 
-// 	{
-//         if ((*this)[i] != s[i]) return 0;
-//     }
-//     return 1;
-// }
 
 void STACK::print(void) const 
 {
@@ -234,7 +225,6 @@ void STACK::print(void) const
 	{
         cout<<"  "<<(*this)[i];
     }
-    // cout<<"\n";
 }
 
 STACK::~STACK(void) 

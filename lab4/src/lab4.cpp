@@ -1,3 +1,9 @@
+/* FileName:	lab4.cpp
+ * Author:		Hover
+ * E-Mail:		hover@hust.edu.cn
+ * GitHub:		HoverWings
+ * Description:	The implementation of QUEUE 
+ */
 #include "lab4.h"
 #include <iostream>
 #include <cmath>
@@ -396,13 +402,29 @@ QUEUE& QUEUE::operator>>(int &e)
 
 int QUEUE::full() const 
 {
-	if(STACK::full()&&1<=int(s2)&&int(s2)<=s2.size())
+	// if(STACK::full()&&1<=int(s2)&&int(s2)<=s2.size())
+	// {
+	// 	return 1;
+	// }
+	// else
+	// {
+	// 	return 0;
+	// }
+	if(0<=int(*this)&&int(*this)<=this->size()-1&&s2.empty()) //state 1
 	{
-		return 1;
+		return false;
 	}
-	else
+	if(0==int(*this)&&s2.full()) //state 2
 	{
-		return 0;
+		return false;
+	}
+	if(1<=int(*this)&&int(*this)<=this->size()&&1<=int(s2)&&int(s2)<=this->size()) //state 3
+	{
+		return false;
+	}
+	if(this->full()&&1<=int(s2)&&int(s2)<=s2.size()) //state 4
+	{
+		return true;
 	}
 }
 
@@ -416,8 +438,8 @@ QUEUE& QUEUE::operator=(const QUEUE &q)
 int QUEUE::operator==(const QUEUE &q) const
 {
 	// size or pos should equal
-	if (this->size() != q.size() || (int)(*this) != (int)q) return 0;
-
+	if (this->size() != q.size() || (int)(*this) != (int)q) 
+		return 0;
 	// every single element should equal
 	for (int i = 0; i < (int)(*this); i++)
 	{
