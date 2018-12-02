@@ -1,3 +1,9 @@
+/* FileName:	lab1.cpp
+ * Author:		Hover
+ * E-Mail:		hover@hust.edu.cn
+ * GitHub:		HoverWings
+ * Description:	The implementation of STACK 
+ */
 #include "lab1.h"
 #include "my_debug.h"
 #include <stdlib.h>

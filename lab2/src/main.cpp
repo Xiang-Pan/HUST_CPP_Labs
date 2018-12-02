@@ -1,3 +1,9 @@
+/* FileName:	main.cpp
+ * Author:		Hover
+ * E-Mail:		hover@hust.edu.cn
+ * GitHub:		HoverWings
+ * Description:	The main of program and call the interface funciton math the OS
+ */
 #include <iostream>
 #include <unistd.h>
 #include <string.h>

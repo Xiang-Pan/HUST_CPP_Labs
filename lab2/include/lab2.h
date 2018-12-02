@@ -1,3 +1,9 @@
+/* FileName:	lab2.h
+ * Author:		Hover
+ * E-Mail:		hover@hust.edu.cn
+ * GitHub:		HoverWings
+ * Description:	The definenation of STACK 
+ */
 #include <stdio.h>
 #include <stdlib.h>
 #include <string.h>
@@ -16,20 +22,21 @@ class STACK
 	// constPropertyBuilderByName(int,max,private)
 	PropertyBuilderByName(int,pos,private)
 public:
-	STACK(int m);							//初始化栈：最多存m个元素
-	STACK(const STACK&s); 					//用栈s拷贝初始化栈
-	virtual int  size ( ) const;			//返回栈的最大元素个数max
-	virtual bool  full ( ) const;			//返回栈是否满了
-	virtual operator int ( ) const;			//返回栈的实际元素个数pos
-	virtual int operator[ ] (int x) const;	//取下标x处的栈元素，第1个元素x=0
-	virtual STACK& operator<<(int e); 		//将e入栈,并返回栈
-	virtual STACK& operator>>(int &e);		//出栈到e,并返回栈
-	virtual STACK& operator=(const STACK&s);//赋s给栈,并返回被赋值的栈
-	// virtual int operator==(const STACK &s) const;
-	virtual void print( ) const;			//打印栈
-	virtual ~STACK( );						//销毁栈
+	STACK(int m);					//初始化栈：最多m个元素
+	STACK(const STACK&s); 			//用栈s拷贝初始化栈
+	int  size ( ) const;			//返回栈的最大元素个数max
+	int  howMany ( ) const;			//返回栈的实际元素个数pos	
+	int  getelem (int x) const;		//取下标x处的栈元素
+	STACK& push(int e); 			//将e入栈,并返回栈
+	STACK& pop(int &e); 			//出栈到e,并返回栈
+	STACK& assign(const STACK&s); 	//赋s给栈,并返回被赋值的栈
+	void print( ) const;			//打印栈
+	~STACK( );						//销毁栈
 	const int  getmax()
 	{
 		return this->max;
 	}
 };
+
+
+

@@ -1,3 +1,9 @@
+/* FileName:	lab1.h
+ * Author:		Hover
+ * E-Mail:		hover@hust.edu.cn
+ * GitHub:		HoverWings
+ * Description:	The definenation of STACK 
+ */
 #include <stdio.h>
 #include <stdlib.h>
 #include <string.h>
@@ -11,12 +17,10 @@ typedef struct STACK
 	int pos;    //栈实际已有元素个数，栈空时pos=0
 }STACK;
 
-//Helper Function
+// Helper Function
 int stack_main(int argc, char *argv[]);
 
 // Stack Function
-
-
 /// @brief initialize stack with size
 /// @param[in] p the stack pointer
 /// @param[in] m the size of the stack
@@ -56,7 +60,6 @@ STACK *const push(STACK *const p, int e); 			//将e入栈，并返回p
 /// @return the stack pointer
 STACK *const pop(STACK *const p, int &e); 			//出栈到e，并返回p
 
-
 /// @brief assign the elements in s to elements in p
 /// @param[in] p the stack to assign
 /// @param[in] s the stack to copy from
@@ -66,7 +69,6 @@ STACK *const assign(STACK*const p, const STACK&s);  //赋s给p指的栈,并返�
 /// @brief print elements in stack
 /// @param[in] p the stack pointer
 void print(const STACK*const p);					//打印p指向的栈
-
 
 /// @brief de-construct the stack
 /// @param[in] p the stack pointer

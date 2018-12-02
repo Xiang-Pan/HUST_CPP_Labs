@@ -1,7 +1,12 @@
+/* FileName:	lab2.cpp
+ * Author:		Hover
+ * E-Mail:		hover@hust.edu.cn
+ * GitHub:		HoverWings
+ * Description:	The implementation of STACK 
+ */
 #include "lab2.h"
 #include <iostream>
-#include <stdlib.h>
-#include <ctype.h>
+#include <cstdlib>
 /*
 “设定栈队或队列大小-S”
 “入-I”、
@@ -51,7 +56,7 @@ int stack_main(int argc, char *argv[])
 					printf("  E");
 					break;
 				}
-				(*s)<<num;
+				s->push(num);
 				// debug(argv[optind][0]);
 				while(isdigit(argv[optind][0]))
 				{
@@ -64,7 +69,7 @@ int stack_main(int argc, char *argv[])
 						printf("  E");
 						break;
 					}
-					(*s)<<num;
+					s->push(num);
 					optind++;
 					if(optind==argc)
 					{
@@ -84,12 +89,12 @@ int stack_main(int argc, char *argv[])
 				debug("%d",num);
 				for (int j = 0; j < num; j++)
 				{
-					if (int(*s)== 0)
+					if (s->howMany()== 0)
 					{
 						printf("  O  E");
 						exit(0);
 					}
-					(*s)>>out;
+					s->pop(out);;
 				}
 				printf("  O");
 				s->print();
@@ -98,7 +103,7 @@ int stack_main(int argc, char *argv[])
 				debug("HAVE option: -C");
 				printf("  C");
 				p = s;
-				s= p;
+				s = p;
 				s->print();
 				break;
 			case 'A':
@@ -106,12 +111,15 @@ int stack_main(int argc, char *argv[])
 				debug("The argument of -A is %s", optarg);
 				num=atoi(optarg);
 				printf("  A");
-				s->print();			//打印当前栈
+				p = new STACK(num);
+				p->assign(*s);		//assign p to s
+				s = p;
+				s->print();			//print current stack
 				break;
 			case 'N':
 				debug("HAVE option: -N");
 				printf("  N");
-				printf("  %d", int(*s));
+				printf("  %d", s->howMany());
 				break;
 			case 'G':
 				debug("HAVE option: -G");
@@ -123,7 +131,7 @@ int stack_main(int argc, char *argv[])
 					printf("  E");
 					break;
 				}
-				printf("  %d", (*s)[num]);
+				printf("  %d", s->getelem(num));
 				break;
 			default:
 				debug("Unknown option: %c",(char)optopt);
@@ -137,8 +145,7 @@ int stack_main(int argc, char *argv[])
 //Impletation Stack Fun
 
 //Overload
-
-STACK::STACK(int m): elems(m > 0 ? new int[m] : new int[0]), max(m > 0 ? m : 0) 
+STACK::STACK(int m): elems(m > 0 ? new int[m] : new int[0]), max(m > 0 ? m : 0)
 {
     this->pos = 0;
     for (int i = 0; i < this->size(); i++)
@@ -146,14 +153,22 @@ STACK::STACK(int m): elems(m > 0 ? new int[m] : new int[0]), max(m > 0 ? m : 0)
         this->elems[i] = 0;
     }
 }
+//STACK::STACK(int m) : elems(new int [m]), max(m), pos(0) {}
 
 STACK::STACK(const STACK &s): elems(s.max > 0 ? new int[s.max] : new int[0]), max(s.max > 0 ? s.max : 0) 
 {
     this->pos = 0;
-    for (int i = 0; i < (int)s && i < this->size(); i++) 
+    for (int i = 0; i < s.howMany() && i < this->size(); i++) 
 	{
-        (*this)<<s[i];
+		int j=0;
+        push(s.getelem(i));
     }
+}
+
+
+int STACK::howMany() const 
+{
+	return pos;
 }
 
 int STACK::size() const 
@@ -161,78 +176,70 @@ int STACK::size() const
     return this->max;
 }
 
-bool STACK::full() const 
+int STACK::getelem(int x) const 
 {
-    return (this->max==(int)(this->pos));
-}
-
-STACK::operator int(void) const 
-{
-    return (int)(this->pos);
-}
-
-
-
-int STACK::operator[](int x) const 
-{
-    // out of range check
-    if (x < 0 || x >= (int)(*this)) return 0;
-    return this->elems[x];
-}
-
-STACK& STACK::operator<<(int e) 
-{
-    // full check
-    // if (this->size() <= (int)(*this)) return *this;
-	cdebug(this->elems[this->pos]);
-    this->elems[this->pos++] = e;
-    return *this;
-}
-
-STACK& STACK::operator>>(int &e) 
-{
-    // empty check
-    if ((int)(*this) <= 0) 
+	if (x < 0 || x >= pos)
 	{
-        e = 0;
-        return *this;
-    }
-
-    e = this->elems[--this->pos];
-    return *this;
+		cerr<<"Index out of range!";
+	}
+	return elems[x];
 }
 
-STACK& STACK::operator=(const STACK &s) 
+STACK &STACK::push(int e) 
 {
-    this->~STACK();
-    new (this) STACK(s);
-    return *this;
+	if (pos == max)
+	{
+		cerr<<"Stack Full!";
+	}
+	elems[pos] = e;
+	pos++;
+	return *this;
 }
 
-// int STACK::operator==(const STACK &s) const 
-// {
-//     // size or pos should equal
-//     if (this->size() != s.size() || (int)(*this) != (int)s) return 0;
+STACK &STACK::pop(int &e) 
+{
+	if (pos == 0 && e != 0)
+	{
+		cerr<<"Stack Empty!";
+	}
+	e = elems[pos - 1];
+	pos--;
+	return *this;
+}
 
-//     // every single element should equal
-//     for (int i = 0; i < (int)(*this); i++) 
-// 	{
-//         if ((*this)[i] != s[i]) return 0;
-//     }
-//     return 1;
-// }
+STACK &STACK::assign(const STACK &s) 
+{
+	delete []this->elems;
+	// malloc again
+	int * const * cp_elems = &(elems);
+	int ** p_elems = const_cast<int **>(cp_elems);
+	*p_elems = new int[s.max];
+	for(int i = 0;i < s.pos;i++)
+	{
+		elems[i] = s.elems[i];
+	}
+	const int * cp_max = &max;
+	int * c_max = const_cast<int *>(cp_max);
+	*c_max = s.max;
+	pos = s.pos;
+	return *this;
+}
+
 
 void STACK::print(void) const 
 {
-    for (int i = 0; i < (int)(*this); i++) 
+    for (int i = 0; i < pos; i++) 
 	{
-        cout<<"  "<<(*this)[i];
+        cout<<"  "<<elems[i];
     }
 }
 
 STACK::~STACK(void) 
 {
-    delete this->elems;
+	if (this->elems)
+	{
+		delete [] this->elems;
+	}
     this->pos = 0;
 }
 

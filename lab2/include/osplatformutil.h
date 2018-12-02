@@ -1,3 +1,9 @@
+/* FileName:	osplatformutil.h
+ * Author:		Hover
+ * E-Mail:		hover@hust.edu.cn
+ * GitHub:		HoverWings
+ * Description:	osplatformutil marco judgement
+ */
 #ifndef OSPLATFORMUTIL_H
 #define OSPLATFORMUTIL_H
 

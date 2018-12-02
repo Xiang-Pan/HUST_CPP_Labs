@@ -1,7 +1,10 @@
+/* FileName:	my_debug.h
+ * Author:      Hover
+ * E-Mail:	hover@hust.edu.cn
+ * GitHub:	HoverWings
+ * Description:	The debug macro and the file redirect macro
+ */
 #include <stdio.h>
-
-
-
 
 #define ECHO_COLOR_NONE         "\033[0;0m"
 #define ECHO_COLOR_GREEN        "\033[0;32m"
