@@ -18,3 +18,5 @@ Others/
 **/Build/:
 *.zip
 latex
+.vscode
+.gitignore
